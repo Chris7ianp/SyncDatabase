@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5282"
+    },
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionStrings__Producao": "Host=161.97.118.237;Port=5432;Database=oficina_rgomes;Username=syncdatabase_leitura;Password=Th@is140410;SSL Mode=Prefer;Include Error Detail=false",
+        "ConnectionStrings__Homologacao": "Host=localhost;Port=5432;Database=rgomes;Username=postgres;Password=admin;Include Error Detail=false"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7133;http://localhost:5282"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}

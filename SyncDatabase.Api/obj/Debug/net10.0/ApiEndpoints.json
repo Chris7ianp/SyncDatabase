@@ -1,0 +1,159 @@
+[
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.ComparacaoController",
+    "Method": "CompararDados",
+    "RelativePath": "api/comparacao/dados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "schema",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "tabela",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "tamanhoLote",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.ComparacaoController",
+    "Method": "CompararEstrutura",
+    "RelativePath": "api/comparacao/estrutura",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.ConexoesController",
+    "Method": "TestarHomologacao",
+    "RelativePath": "api/conexoes/testar-homologacao",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.ConexoesController",
+    "Method": "TestarProducao",
+    "RelativePath": "api/conexoes/testar-producao",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.SincronizacaoRegistroController",
+    "Method": "Aplicar",
+    "RelativePath": "api/sincronizacao/registro/aplicar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SyncDatabase.Api.Controllers.SincronizacaoRegistroController\u002BAplicarRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.SincronizacaoRegistroController",
+    "Method": "CriarPrevia",
+    "RelativePath": "api/sincronizacao/registro/previa",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SyncDatabase.Api.Controllers.SincronizacaoRegistroController\u002BPreviaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.TarefasController",
+    "Method": "ListarTarefas",
+    "RelativePath": "api/tarefas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limite",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.TarefasController",
+    "Method": "ConsultarTarefa",
+    "RelativePath": "api/tarefas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.TarefasController",
+    "Method": "CriarComparacaoDados",
+    "RelativePath": "api/tarefas/comparacao-dados",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SyncDatabase.Api.Controllers.TarefasController\u002BCriarTarefaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SyncDatabase.Api.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SyncDatabase.Api.WeatherForecast, SyncDatabase.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

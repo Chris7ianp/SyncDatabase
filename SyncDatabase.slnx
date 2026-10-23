@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="SyncDatabase.Api/SyncDatabase.Api.csproj" Id="c6fe7339-88c7-4e56-8900-b230a4c31bde" />
+  <Project Path="SyncDatabase.Application/SyncDatabase.Application.csproj" />
+  <Project Path="SyncDatabase.Infrastructure/SyncDatabase.Infrastructure.csproj" Id="5591b796-6107-4c79-be17-18a3c2a4ebc6" />
+  <Project Path="SyncDatabase.Worker/SyncDatabase.Worker.csproj" />
+  <Project Path="SyncDatabase.Tests/SyncDatabase.Tests.csproj" />
+</Solution>

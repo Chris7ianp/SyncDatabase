@@ -1,0 +1,363 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "SyncDatabase.Api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/comparacao/estrutura": {
+      "get": {
+        "tags": [
+          "Comparacao"
+        ],
+        "summary": "Compara a estrutura PostgreSQL dos dois ambientes em modo somente leitura.",
+        "description": "O resultado informa explicitamente as categorias estruturais ainda não comparadas.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/comparacao/dados": {
+      "get": {
+        "tags": [
+          "Comparacao"
+        ],
+        "summary": "Compara dados de uma tabela por chave primária, em lotes e somente leitura.",
+        "description": "Retorna contagens e amostras de chaves anonimizadas, sem expor valores das linhas.",
+        "parameters": [
+          {
+            "name": "schema",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tabela",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tamanhoLote",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/conexoes/testar-producao": {
+      "get": {
+        "tags": [
+          "Conexoes"
+        ],
+        "summary": "Testa a conexão configurada para Produção sem retornar dados de conexão.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/conexoes/testar-homologacao": {
+      "get": {
+        "tags": [
+          "Conexoes"
+        ],
+        "summary": "Testa a conexão configurada para Homologação sem retornar dados de conexão.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sincronizacao/registro/previa": {
+      "post": {
+        "tags": [
+          "SincronizacaoRegistro"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreviaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreviaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreviaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sincronizacao/registro/aplicar": {
+      "post": {
+        "tags": [
+          "SincronizacaoRegistro"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AplicarRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AplicarRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AplicarRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tarefas/comparacao-dados": {
+      "post": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Solicita uma comparação de dados em segundo plano.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarTarefaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarTarefaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CriarTarefaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tarefas": {
+      "get": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Lista as tarefas recentes para o histórico de execuções.",
+        "parameters": [
+          {
+            "name": "limite",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tarefas/{id}": {
+      "get": {
+        "tags": [
+          "Tarefas"
+        ],
+        "summary": "Consulta o estado e o resultado de uma tarefa.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AplicarRequest": {
+        "type": "object",
+        "properties": {
+          "previewId": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmado": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CriarTarefaRequest": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "type": "string",
+            "nullable": true
+          },
+          "tabela": {
+            "type": "string",
+            "nullable": true
+          },
+          "tamanhoLote": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PreviaRequest": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "type": "string",
+            "nullable": true
+          },
+          "tabela": {
+            "type": "string",
+            "nullable": true
+          },
+          "chavePrimaria": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Comparacao"
+    },
+    {
+      "name": "Conexoes"
+    },
+    {
+      "name": "SincronizacaoRegistro"
+    },
+    {
+      "name": "Tarefas"
+    },
+    {
+      "name": "WeatherForecast"
+    }
+  ]
+}

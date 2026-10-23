@@ -1,0 +1,79 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5591B796-6107-4C79-BE17-18A3C2A4EBC6}|SyncDatabase.Infrastructure\\SyncDatabase.Infrastructure.csproj|c:\\users\\chris\\onedrive\\documentos\\projetos\\syncdatabase\\syncdatabase\\syncdatabase.infrastructure\\postgresql\\comparacao\\comparadordadospostgresql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5591B796-6107-4C79-BE17-18A3C2A4EBC6}|SyncDatabase.Infrastructure\\SyncDatabase.Infrastructure.csproj|solutionrelative:syncdatabase.infrastructure\\postgresql\\comparacao\\comparadordadospostgresql.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1098B1AB-0752-110B-FABB-2424E2C8DB21}|SyncDatabase.Application\\SyncDatabase.Application.csproj|c:\\users\\chris\\onedrive\\documentos\\projetos\\syncdatabase\\syncdatabase\\syncdatabase.application\\dtos\\resultadocomparacaodados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1098B1AB-0752-110B-FABB-2424E2C8DB21}|SyncDatabase.Application\\SyncDatabase.Application.csproj|solutionrelative:syncdatabase.application\\dtos\\resultadocomparacaodados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1098B1AB-0752-110B-FABB-2424E2C8DB21}|SyncDatabase.Application\\SyncDatabase.Application.csproj|c:\\users\\chris\\onedrive\\documentos\\projetos\\syncdatabase\\syncdatabase\\syncdatabase.application\\dtos\\registrodivergentedados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1098B1AB-0752-110B-FABB-2424E2C8DB21}|SyncDatabase.Application\\SyncDatabase.Application.csproj|solutionrelative:syncdatabase.application\\dtos\\registrodivergentedados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegistroDivergenteDados.cs",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Application\\DTOs\\RegistroDivergenteDados.cs",
+              "RelativeDocumentMoniker": "SyncDatabase.Application\\DTOs\\RegistroDivergenteDados.cs",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Application\\DTOs\\RegistroDivergenteDados.cs",
+              "RelativeToolTip": "SyncDatabase.Application\\DTOs\\RegistroDivergenteDados.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-23T18:13:41.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ResultadoComparacaoDados.cs",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Application\\DTOs\\ResultadoComparacaoDados.cs",
+              "RelativeDocumentMoniker": "SyncDatabase.Application\\DTOs\\ResultadoComparacaoDados.cs",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Application\\DTOs\\ResultadoComparacaoDados.cs",
+              "RelativeToolTip": "SyncDatabase.Application\\DTOs\\ResultadoComparacaoDados.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBEAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-23T18:11:38.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ComparadorDadosPostgreSql.cs",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Infrastructure\\PostgreSql\\Comparacao\\ComparadorDadosPostgreSql.cs",
+              "RelativeDocumentMoniker": "SyncDatabase.Infrastructure\\PostgreSql\\Comparacao\\ComparadorDadosPostgreSql.cs",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documentos\\Projetos\\SyncDatabase\\SyncDatabase\\SyncDatabase.Infrastructure\\PostgreSql\\Comparacao\\ComparadorDadosPostgreSql.cs",
+              "RelativeToolTip": "SyncDatabase.Infrastructure\\PostgreSql\\Comparacao\\ComparadorDadosPostgreSql.cs",
+              "ViewState": "AgIAADMBAAAAAAAAAAAkwE0BAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-23T18:08:07.509Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\Debug\net10.0\SyncDatabase.Application.deps.json
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\Debug\net10.0\SyncDatabase.Application.dll
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\Debug\net10.0\SyncDatabase.Application.pdb
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.AssemblyInfoInputs.cache
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.AssemblyInfo.cs
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.csproj.CoreCompileInputs.cache
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.dll
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\refint\SyncDatabase.Application.dll
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\SyncDatabase.Application.pdb
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\obj\Debug\net10.0\ref\SyncDatabase.Application.dll
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\verify\Debug\net10.0\SyncDatabase.Application.deps.json
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\verify\Debug\net10.0\SyncDatabase.Application.dll
+C:\Users\chris\OneDrive\Documentos\Projetos\SyncDatabase\SyncDatabase\SyncDatabase.Application\bin\verify\Debug\net10.0\SyncDatabase.Application.pdb

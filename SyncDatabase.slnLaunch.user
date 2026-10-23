@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Novo Perfil",
+    "Projects": [
+      {
+        "Path": "SyncDatabase.Api\\SyncDatabase.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "SyncDatabase.Worker\\SyncDatabase.Worker.csproj",
+        "Action": "Start",
+        "DebugTarget": "SyncDatabase.Worker"
+      }
+    ]
+  }
+]

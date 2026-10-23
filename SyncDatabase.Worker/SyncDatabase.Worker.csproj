@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>dotnet-SyncDatabase.Worker-51459049-ade2-4436-8466-844e2e1b5184</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SyncDatabase.Application\SyncDatabase.Application.csproj" />
+		<ProjectReference Include="..\SyncDatabase.Infrastructure\SyncDatabase.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>
