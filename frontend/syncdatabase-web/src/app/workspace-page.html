@@ -1,0 +1,430 @@
+<div class="page-content">
+  <section class="page-heading">
+    <div>
+      <div class="section-overline">SYNC DATABASE</div>
+      <h1>{{ tituloPagina }}</h1>
+      @switch (pagina) {
+        @case ('overview') { <p>Resumo dos ambientes e atalhos para as ferramentas de diagnóstico.</p> }
+        @case ('compare') { <p>Compare a estrutura de Produção com Homologação em modo somente leitura.</p> }
+        @case ('tables') { <p>Inspecione diferenças de dados de uma tabela compartilhada pela chave primária.</p> }
+        @case ('history') { <p>Execuções realizadas nesta sessão do navegador.</p> }
+        @case ('settings') { <p>Informações de configuração e segurança da aplicação.</p> }
+      }
+    </div>
+    @if (pagina === 'compare') {
+      <button class="primary-button" type="button" (click)="comparar()" [disabled]="carregando">
+        {{ carregando ? 'Comparando…' : 'Comparar estrutura' }}
+      </button>
+    }
+  </section>
+
+  @switch (pagina) {
+    @case ('overview') {
+      <section class="metrics-grid">
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Ambientes</span><span class="metric-icon icon-blue">⌘</span></div><div class="metric-value">2</div><div class="metric-footer">Produção e Homologação</div></article>
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Tabelas compartilhadas</span><span class="metric-icon icon-purple">▤</span></div><div class="metric-value">{{ resultado?.tabelasEmAmbosAmbientes?.length ?? '—' }}</div><div class="metric-footer">{{ resultado ? 'Última comparação estrutural' : 'Execute uma comparação para carregar' }}</div></article>
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Diferenças estruturais</span><span class="metric-icon icon-orange">≠</span></div><div class="metric-value">{{ resultado ? totalDiferencas(resultado) : '—' }}</div><div class="metric-footer">{{ resultado ? 'Resultado da última comparação' : 'Nenhuma comparação nesta sessão' }}</div></article>
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Execuções recentes</span><span class="metric-icon icon-green">◷</span></div><div class="metric-value">{{ historico.length }}</div><div class="metric-footer">Histórico desta sessão</div></article>
+      </section>
+
+      <section class="panel environments-panel">
+        <div class="panel-heading"><div><h2>Ambientes</h2><p>Produção é a origem; Homologação é o destino de diagnóstico.</p></div><span class="panel-counter">POSTGRESQL</span></div>
+        <div class="environment-flow overview-environment-flow">
+          <article class="database-card"><span class="environment-type">ORIGEM · SOURCE</span><h3>Produção</h3><p>Consultas de diagnóstico em modo somente leitura.</p></article>
+          <div class="flow-connector"><div class="connector-line"></div><div class="connector-icon">→</div><span>DIAGNÓSTICO</span><div class="connector-line"></div></div>
+          <article class="database-card"><span class="environment-type">DESTINO · TARGET</span><h3>Homologação</h3><p>Ambiente comparado com Produção.</p></article>
+        </div>
+      </section>
+
+      <section class="quick-actions">
+        <a class="panel quick-action" routerLink="/compare"><span class="nav-icon">⇄</span><div><strong>Comparar bancos</strong><p>Ver diferenças de tabelas, colunas, índices e constraints.</p></div><span>→</span></a>
+        <a class="panel quick-action" routerLink="/tables"><span class="nav-icon">▤</span><div><strong>Explorador de tabelas</strong><p>Comparar registros de uma tabela usando a chave primária.</p></div><span>→</span></a>
+        <a class="panel quick-action" routerLink="/history"><span class="nav-icon">◷</span><div><strong>Histórico</strong><p>Rever as execuções desta sessão.</p></div><span>→</span></a>
+      </section>
+    }
+
+    @case ('compare') {
+      <section class="panel environments-panel">
+        <div class="panel-heading"><div><h2>Estado das conexões</h2><p>Os detalhes das connection strings nunca são exibidos.</p></div><button class="outline-button" type="button" (click)="testarConexoes()">Testar conexões</button></div>
+        <div class="connection-summary">
+          <div><span class="status-dot" [class.connected]="origem.conectado"></span><strong>Produção</strong><span>{{ origem.conectado ? 'Conectado' : origem.mensagem }}</span></div>
+          <div><span class="status-dot" [class.connected]="destino.conectado"></span><strong>Homologação</strong><span>{{ destino.conectado ? 'Conectado' : destino.mensagem }}</span></div>
+        </div>
+      </section>
+      @if (erro) { <div class="error-banner" role="alert">{{ erro }}</div> }
+      @if (resultado) {
+        <section class="panel results-panel">
+          <div class="panel-heading"><div><h2>Resultado estrutural</h2><p>Concluída em {{ resultado.dataComparacao | date:'short' }}</p></div><span class="panel-counter">{{ totalDiferencas(resultado) }} DIFERENÇAS</span></div>
+          <div class="result-summary"><div><strong>{{ resultado.tabelasEmAmbosAmbientes.length }}</strong><span>Tabelas compartilhadas</span></div><div><strong>{{ resultado.tabelasApenasNaProducao.length }}</strong><span>Somente em Produção</span></div><div><strong>{{ resultado.tabelasApenasNaHomologacao.length }}</strong><span>Somente em Homologação</span></div></div>
+          <p class="scope-note">Os dados das linhas são comparados separadamente, sob demanda, no Explorador de tabelas.</p>
+          <div class="result-categories">
+            <details><summary>Tabelas somente em Produção ({{ resultado.tabelasApenasNaProducao.length }})</summary>@for (tabela of resultado.tabelasApenasNaProducao; track tabela) { <pre>{{ tabela }}</pre> }</details>
+            <details><summary>Tabelas somente em Homologação ({{ resultado.tabelasApenasNaHomologacao.length }})</summary>@for (tabela of resultado.tabelasApenasNaHomologacao; track tabela) { <pre>{{ tabela }}</pre> }</details>
+            <details open><summary>Colunas ({{ resultado.diferencasColunas.length }})</summary>@for (item of resultado.diferencasColunas; track $index) { <pre>{{ item | json }}</pre> }</details>
+            <details><summary>Chaves primárias ({{ resultado.diferencasChavesPrimarias.length }})</summary>@for (item of resultado.diferencasChavesPrimarias; track $index) { <pre>{{ item | json }}</pre> }</details>
+            <details><summary>Chaves estrangeiras ({{ resultado.diferencasChavesEstrangeiras.length }})</summary>@for (item of resultado.diferencasChavesEstrangeiras; track $index) { <pre>{{ item | json }}</pre> }</details>
+            <details><summary>Índices ({{ resultado.diferencasIndices.length }})</summary>@for (item of resultado.diferencasIndices; track $index) { <pre>{{ item | json }}</pre> }</details>
+            <details><summary>Constraints ({{ resultado.diferencasConstraints.length }})</summary>@for (item of resultado.diferencasConstraints; track $index) { <pre>{{ item | json }}</pre> }</details>
+            <details><summary>Outros objetos ({{ resultado.diferencasOutrosObjetos.length }})</summary>@for (item of resultado.diferencasOutrosObjetos; track $index) { <pre>{{ item | json }}</pre> }</details>
+          </div>
+        </section>
+      } @else {
+        <section class="panel empty-page-state"><h2>Nenhuma comparação estrutural nesta sessão</h2><p>Use “Comparar estrutura” no topo desta página para consultar os bancos.</p></section>
+      }
+    }
+
+    @case ('tables') {
+  <section class="panel data-compare-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Comparar e atualizar um registro</h2>
+        <p>
+          Compare uma tabela e, se necessário, atualize uma linha existente
+          em Homologação usando a chave primária.
+        </p>
+      </div>
+      <span class="panel-counter">PRODUÇÃO → HOMOLOGAÇÃO</span>
+    </div>
+
+    <!-- Formulário de comparação -->
+    <form class="data-compare-form" (ngSubmit)="compararDados()">
+      <label>
+        Schema
+        <input
+          name="schemaDados"
+          [(ngModel)]="schemaDados"
+          required
+          autocomplete="off"
+          placeholder="public">
+      </label>
+
+      <label>
+        Tabela
+        <input
+          name="tabelaDados"
+          [(ngModel)]="tabelaDados"
+          required
+          autocomplete="off"
+          placeholder="nome_da_tabela">
+      </label>
+
+      <button
+        class="primary-button"
+        type="submit"
+        [disabled]="carregandoDados || !schemaDados.trim() || !tabelaDados.trim()">
+        {{ carregandoDados ? 'Comparando por lotes…' : 'Comparar dados' }}
+      </button>
+
+      @if (carregandoDados) {
+        <button
+          class="outline-button"
+          type="button"
+          (click)="cancelarComparacaoDados()">
+          Cancelar
+        </button>
+      }
+    </form>
+
+    @if (erroDados) {
+      <div class="error-banner" role="alert">
+        {{ erroDados }}
+      </div>
+    }
+
+    @if (mensagemAtualizacao) {
+      <div class="success-banner" role="status">
+        {{ mensagemAtualizacao }}
+      </div>
+    }
+
+    @if (resultadoDados) {
+      @if (!resultadoDados.comparavel) {
+        <p class="scope-note data-result-note">
+          Não foi possível comparar: {{ resultadoDados.motivoNaoComparavel }}
+        </p>
+      } @else {
+        <!-- Resumo da comparação -->
+        <div class="result-summary data-result-summary">
+          <div>
+            <strong>{{ resultadoDados.registrosProducao }}</strong>
+            <span>Em Produção</span>
+          </div>
+          <div>
+            <strong>{{ resultadoDados.registrosHomologacao }}</strong>
+            <span>Em Homologação</span>
+          </div>
+          <div>
+            <strong>{{ resultadoDados.registrosApenasNaProducao }}</strong>
+            <span>Somente em Produção</span>
+          </div>
+          <div>
+            <strong>{{ resultadoDados.registrosApenasNaHomologacao }}</strong>
+            <span>Somente em Homologação</span>
+          </div>
+          <div>
+            <strong>{{ resultadoDados.registrosComDiferencas }}</strong>
+            <span>Com divergências</span>
+          </div>
+        </div>
+
+        @if (resultadoDados.colunasIgnoradasPorTipo.length) {
+          <p class="scope-note data-result-note">
+            Colunas ignoradas por diferença de tipo:
+            {{ resultadoDados.colunasIgnoradasPorTipo.join(', ') }}
+          </p>
+        }
+
+        <!-- Resumo das diferenças por coluna -->
+        @if (temDiferencasDados()) {
+          <details class="data-column-differences" open>
+            <summary>Registros divergentes por coluna</summary>
+            <pre>{{ resultadoDados.diferencasPorColuna | json }}</pre>
+          </details>
+        }
+
+@if (resultadoDados.registrosDivergentes?.length) {
+  <section class="panel data-column-differences">
+    <div class="panel-heading">
+      <div>
+        <h3>Registros divergentes</h3>
+        <p>Consulte a prévia de cada registro antes de atualizar Homologação.</p>
+      </div>
+      <span class="panel-counter">
+        {{ resultadoDados.registrosDivergentes.length }} REGISTRO(S)
+      </span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>CHAVE PRIMÁRIA</th>
+            <th>COLUNAS DIVERGENTES</th>
+            <th>AÇÃO</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (registro of resultadoDados.registrosDivergentes; track $index) {
+            <tr>
+              <td>
+                <code>{{ registro.chavePrimaria | json }}</code>
+              </td>
+              <td>{{ registro.colunasDivergentes.join(', ') }}</td>
+              <td>
+                <button
+                  class="outline-button"
+                  type="button"
+                  (click)="consultarRegistroDivergente(registro)"
+                  [disabled]="carregandoPrevia || aplicandoAtualizacao">
+                  Gerar prévia
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}
+          }
+        }
+
+        <section class="record-sync-section" aria-labelledby="record-sync-title">
+          <div class="record-sync-heading">
+            <div><h3 id="record-sync-title">Atualizar um registro</h3><p>Informe os valores da chave primária. O sistema mostra a prévia antes de gravar.</p></div>
+          </div>
+          <form class="record-sync-form" (ngSubmit)="criarPreviaAtualizacao()">
+            <label>Chave primária (JSON)
+              <input name="chavePrimariaJson" [(ngModel)]="chavePrimariaJson" required autocomplete="off" placeholder='{"id":"valor da chave"}'>
+            </label>
+            <button class="outline-button" type="submit" [disabled]="carregandoPrevia || aplicandoAtualizacao || !schemaDados.trim() || !tabelaDados.trim()">
+              {{ carregandoPrevia ? 'Consultando registro…' : 'Consultar prévia' }}
+            </button>
+          </form>
+          
+@if (previaAtualizacao) {
+  <div class="record-sync-preview" role="status">
+
+    <p class="scope-note">{{ previaAtualizacao.mensagem }}</p>
+
+    @if (previaAtualizacao.registroEncontradoNaProducao && previaAtualizacao.registroEncontradoNaHomologacao) {
+      <div class="record-existence-grid">
+        <div class="record-existence-card">
+          <span>Produção</span>
+          <strong class="record-exists">Registro encontrado</strong>
+        </div>
+
+        <div class="record-existence-card">
+          <span>Homologação</span>
+          <strong class="record-exists">Registro encontrado</strong>
+        </div>
+      </div>
+    }
+
+    @if (previaAtualizacao.colunasIgnoradasPorTipo.length) {
+      <p class="scope-note">
+        Colunas ignoradas por diferença de tipo:
+        {{ previaAtualizacao.colunasIgnoradasPorTipo.join(', ') }}
+      </p>
+    }
+
+    @if (previaAtualizacao.diferencas.length > 0) {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>COLUNA</th>
+              <th>PRODUÇÃO</th>
+              <th>HOMOLOGAÇÃO</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of previaAtualizacao.diferencas; track trackDiferenca($index, item)) {
+              <tr>
+                <td>
+                  <strong>{{ item.coluna }}</strong>
+                  <small>{{ item.tipoDados }}</small>
+                </td>
+                <td><pre>{{ formatarJson(item.valorProducaoJson) }}</pre></td>
+                <td><pre>{{ formatarJson(item.valorHomologacaoJson) }}</pre></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="record-no-differences">
+        <span class="record-no-differences-icon">✓</span>
+        <div>
+          <strong>Nenhuma diferença encontrada</strong>
+          <p>Este registro já está sincronizado entre Produção e Homologação. Não é necessário atualizar.</p>
+        </div>
+      </div>
+    }
+
+    @if (previaAtualizacao.podeAplicar) {
+      <p class="scope-note">
+        A confirmação atualiza somente esta linha existente em Homologação
+        e as colunas divergentes que podem ser gravadas. Nenhuma linha será
+        inserida ou excluída.
+      </p>
+
+      <button
+        class="primary-button"
+        type="button"
+        (click)="aplicarAtualizacao()"
+        [disabled]="aplicandoAtualizacao">
+        {{ aplicandoAtualizacao ? 'Atualizando…' : 'Atualizar registro em Homologação' }}
+      </button>
+    }
+  </div>
+}
+
+        </section>
+      </section>
+    }
+
+    @case ('history') {
+  <section class="panel activity-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Histórico de execuções</h2>
+        <p>Tarefas registradas pela API e processadas pelo Worker.</p>
+      </div>
+
+      <button
+        class="outline-button"
+        type="button"
+        (click)="carregarHistorico()"
+        [disabled]="carregandoHistorico">
+        {{ carregandoHistorico ? 'Atualizando…' : 'Atualizar histórico' }}
+      </button>
+      <p>Diagnóstico: {{ tarefas.length }} tarefa(s) carregada(s).</p>
+    </div>
+
+    @if (erroHistorico) {
+      <div class="error-banner" role="alert">
+        {{ erroHistorico }}
+      </div>
+    }
+
+    
+<div class="table-wrap activity-table-wrap">
+  <table class="activity-table">
+    <thead>
+      <tr>
+        <th>TIPO</th>
+        <th>DETALHES DA TAREFA</th>
+        <th>STATUS</th>
+        <th>CRIADA EM</th>
+        <th>DURAÇÃO</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @if (carregandoHistorico && !tarefas.length) {
+        <tr>
+          <td colspan="5">
+            <div class="empty-state">Carregando histórico...</div>
+          </td>
+        </tr>
+      } @else {
+        @for (tarefa of tarefas; track tarefa.id) {
+          <tr class="activity-row">
+            <td>
+              <span class="task-type">{{ tarefa.tipo }}</span>
+            </td>
+
+            <td class="task-details">
+              <strong>{{ tarefa.parametros['schema'] || '—' }}.{{ tarefa.parametros['tabela'] || '—' }}</strong>
+              @if (tarefa.erro) {
+                <p class="task-error">{{ tarefa.erro }}</p>
+              }
+            </td>
+
+            <td>
+              <span
+                class="task-status"
+                [class.status-pendente]="tarefa.status === 'Pendente'"
+                [class.status-processando]="tarefa.status === 'EmProcessamento'"
+                [class.status-concluida]="tarefa.status === 'Concluida'"
+                [class.status-falhou]="tarefa.status === 'Falhou'">
+                <span class="status-indicator"></span>
+                {{ tarefa.status }}
+              </span>
+            </td>
+
+            <td class="task-date">{{ tarefa.criadaEm | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="task-duration">{{ duracaoTarefa(tarefa) }}</td>
+          </tr>
+        }
+
+        @if (!tarefas.length && !erroHistorico) {
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <strong>Nenhuma tarefa encontrada</strong>
+                <p>As tarefas registradas pela API aparecerão aqui.</p>
+              </div>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+  </section>
+}
+
+    @case ('settings') {
+      <section class="panel settings-panel">
+        <div class="panel-heading"><div><h2>Configuração dos ambientes</h2><p>As conexões são configuradas na API por variáveis de ambiente.</p></div><span class="panel-counter">CREDENCIAIS PROTEGIDAS</span></div>
+        <div class="settings-grid"><article><span>Origem</span><strong>Produção · PostgreSQL</strong><p>Consultada apenas em modo de leitura.</p></article><article><span>Destino</span><strong>Homologação · PostgreSQL</strong><p>Consultada apenas em modo de leitura.</p></article></div>
+        <div class="security-note"><span class="security-icon">♢</span><div><strong>Sem edição de conexão pela interface</strong><p>Hosts, usuários e senhas não são enviados nem exibidos no navegador.</p></div></div>
+      </section>
+    }
+  }
+
+  <footer class="page-footer"><span>SyncDatabase <span class="footer-separator">·</span> {{ tituloPagina }}</span><span>Modo de diagnóstico <span class="footer-dot"></span></span></footer>
+</div>
