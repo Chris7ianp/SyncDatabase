@@ -1,3 +1,4 @@
 # Configurações locais podem conter connection strings e outros segredos.
 **/appsettings*.json
 !**/appsettings.example.json
+**/launchSettings.json
